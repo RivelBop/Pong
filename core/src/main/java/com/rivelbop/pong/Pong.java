@@ -19,11 +19,14 @@ public class Pong extends ApplicationAdapter {
     // Draws shapes to the screen
     private ShapeRenderer shapeRenderer;
 
+    // Game elements
+    private Player player;
     private Ball ball;
 
     @Override
     public void create() {
         shapeRenderer = new ShapeRenderer();
+        player = new Player();
         ball = new Ball();
     }
 
@@ -33,12 +36,15 @@ public class Pong extends ApplicationAdapter {
         ScreenUtils.clear(Color.BLACK);
 
         /* Updates */
+        player.update();
         ball.update();
 
         /* Drawing to the screen */
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        // BONUS: shapeRenderer.setColor(new Color(0.3f, 0.7f, 0.1f, 1f));
+        // Draw ball
         shapeRenderer.rect(ball.BOUNDS.x, ball.BOUNDS.y, ball.WIDTH, ball.HEIGHT);
+        // Draw player
+        shapeRenderer.rect(player.BOUNDS.x, player.BOUNDS.y, player.WIDTH, player.HEIGHT);
         shapeRenderer.end();
     }
 

@@ -24,10 +24,9 @@ public class Ball {
     }
 
     public void update() {
-        if (BOUNDS.x <= 0f) { // Ball leaves left side of the screen
-            hDir = 1; // Move right
-        } else if (BOUNDS.x + WIDTH >= Pong.WIDTH) { // Ball leaves right side of the screen
-            hDir = -1; // Move left
+        // BONUS:
+        if (BOUNDS.x <= 0f || BOUNDS.x + WIDTH >= Pong.WIDTH) { // Ball leaves the sides of the screen
+            BOUNDS.setCenter(Pong.WIDTH / 2f, Pong.HEIGHT / 2f); // Center the ball
         }
 
         if (BOUNDS.y <= 0f) { // Ball leaves the bottom of the screen
