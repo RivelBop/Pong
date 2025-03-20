@@ -15,7 +15,7 @@ public class Enemy {
 
     public final Rectangle BOUNDS;
 
-    // BONUS: Used to speed up the enemy when the player scores
+    // Used to speed up the enemy when the player scores
     public float speedScale = 1f;
 
     public Enemy() {

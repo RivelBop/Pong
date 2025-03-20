@@ -2,6 +2,7 @@ package com.rivelbop.pong;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -78,6 +79,10 @@ public class Pong extends ApplicationAdapter {
         // Clear the screen to black
         ScreenUtils.clear(Color.BLACK);
 
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { // The user presses the ESCAPE key
+            Gdx.app.exit(); // Quit the game
+        }
+
         /* Updates */
         player.update(ball);
         enemy.update(ball);
@@ -89,7 +94,7 @@ public class Pong extends ApplicationAdapter {
                 enemyScore++; // Increase the enemy's score
             } else { // The player scored
                 playerScore++; // Increase the player's score
-                enemy.speedScale += 0.1f; // BONUS: Increase enemy speed by 10% of its base speed
+                enemy.speedScale += 0.1f; // Increase enemy speed by 10% of its base speed
             }
 
             // Set player, enemy, and ball back to their center, starting positions
