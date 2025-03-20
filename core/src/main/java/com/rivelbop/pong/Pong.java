@@ -2,6 +2,7 @@ package com.rivelbop.pong;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -29,6 +30,10 @@ public class Pong extends ApplicationAdapter {
     private BitmapFont font;
     private GlyphLayout playerScoreGlyph;
 
+    // Sound effects
+    private Sound scoreSound;
+    public static Sound bounceSound;
+
     // Game elements
     private Player player;
     private Enemy enemy;
@@ -51,6 +56,10 @@ public class Pong extends ApplicationAdapter {
 
         // Helps correctly center the player score font to the left of the center line
         playerScoreGlyph = new GlyphLayout();
+
+        // Load sound effects
+        scoreSound = Gdx.audio.newSound(Gdx.files.internal("score.mp3"));
+        bounceSound = Gdx.audio.newSound(Gdx.files.internal("bounce.mp3"));
 
         player = new Player();
         enemy = new Enemy();
@@ -75,10 +84,12 @@ public class Pong extends ApplicationAdapter {
         ball.update();
 
         if (ball.hasScored()) { // If either the player or enemy have scored
+            scoreSound.play();
             if (ball.enemyHasScored) { // The enemy scored
                 enemyScore++; // Increase the enemy's score
             } else { // The player scored
                 playerScore++; // Increase the player's score
+                enemy.speedScale += 0.1f; // BONUS: Increase enemy speed by 10% of its base speed
             }
 
             // Set player, enemy, and ball back to their center, starting positions
@@ -126,5 +137,8 @@ public class Pong extends ApplicationAdapter {
         shapeRenderer.dispose();
         batch.dispose();
         font.dispose();
+
+        scoreSound.dispose();
+        bounceSound.dispose();
     }
 }

@@ -37,6 +37,7 @@ public class Player {
         // Checks if the ball is to the right of the paddle (compares center x-positions)
         boolean ballOnRight = ball.BOUNDS.x + ball.WIDTH / 2f > BOUNDS.x + WIDTH / 2f;
         if (ballOnRight && BOUNDS.overlaps(ball.BOUNDS)) { // The ball is on the right and overlaps the paddle
+            Pong.bounceSound.play(); // Play bounce sound effect
             ball.hDir = 1; // Move the ball to the right (since the player is to the left of the screen)
             ball.speedScale += 0.05f; // Increase the speed of the ball by 5% of the base speed
         }

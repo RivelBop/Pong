@@ -15,6 +15,9 @@ public class Enemy {
 
     public final Rectangle BOUNDS;
 
+    // BONUS: Used to speed up the enemy when the player scores
+    public float speedScale = 1f;
+
     public Enemy() {
         // Choose a horizontal position for the paddle (1/8 of the screen width from the right)
         // Center the y-position of the paddle
@@ -31,9 +34,9 @@ public class Enemy {
               delta = Gdx.graphics.getDeltaTime();
 
         if (centerY < BALL_POS.y) { // The paddle is below the ball
-            BOUNDS.y += SPEED * delta; // Move the paddle up
+            BOUNDS.y += SPEED * speedScale * delta; // Move the paddle up
         } else if (centerY > BALL_POS.y) { // The paddle is above the ball
-            BOUNDS.y -= SPEED * delta; // Move the paddle down
+            BOUNDS.y -= SPEED * speedScale * delta; // Move the paddle down
         }
 
         if (BOUNDS.y + HEIGHT > Pong.HEIGHT) { // Enemy leaves the top of the screen
@@ -45,6 +48,7 @@ public class Enemy {
         // Checks if the ball is to the left of the paddle (compares center x-positions)
         boolean ballOnLeft = ball.BOUNDS.x + ball.WIDTH / 2f < BOUNDS.x + WIDTH / 2f;
         if (ballOnLeft && BOUNDS.overlaps(ball.BOUNDS)) { // The ball is on the left and overlaps the paddle
+            Pong.bounceSound.play(); // Play bounce sound effect
             ball.hDir = -1; // Move the ball to the left (since the enemy is to the right of the screen)
             ball.speedScale += 0.05f; // Increase the speed of the ball by 5% of the base speed
         }

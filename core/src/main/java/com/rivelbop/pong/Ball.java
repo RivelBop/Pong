@@ -31,8 +31,10 @@ public class Ball {
 
     public void update() {
         if (BOUNDS.y <= 0f) { // Ball leaves the bottom of the screen
+            Pong.bounceSound.play(); // Play bounce sound effect
             vDir = 1; // Move up
         } else if (BOUNDS.y + HEIGHT >= Pong.HEIGHT) { // Ball leaves the top of the screen
+            Pong.bounceSound.play(); // Play bounce sound effect
             vDir = -1; // Move down
         }
 
