@@ -21,12 +21,14 @@ public class Pong extends ApplicationAdapter {
 
     // Game elements
     private Player player;
+    private Enemy enemy;
     private Ball ball;
 
     @Override
     public void create() {
         shapeRenderer = new ShapeRenderer();
         player = new Player();
+        enemy = new Enemy();
         ball = new Ball();
     }
 
@@ -37,14 +39,19 @@ public class Pong extends ApplicationAdapter {
 
         /* Updates */
         player.update();
+        enemy.update(ball);
         ball.update();
 
         /* Drawing to the screen */
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        // Draw center line
+        shapeRenderer.rectLine(WIDTH / 2f, HEIGHT, WIDTH / 2f, 0f, 10f);
         // Draw ball
         shapeRenderer.rect(ball.BOUNDS.x, ball.BOUNDS.y, ball.WIDTH, ball.HEIGHT);
         // Draw player
         shapeRenderer.rect(player.BOUNDS.x, player.BOUNDS.y, player.WIDTH, player.HEIGHT);
+        // Draw enemy
+        shapeRenderer.rect(enemy.BOUNDS.x, enemy.BOUNDS.y, enemy.WIDTH, enemy.HEIGHT);
         shapeRenderer.end();
     }
 

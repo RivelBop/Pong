@@ -24,7 +24,6 @@ public class Ball {
     }
 
     public void update() {
-        // BONUS:
         if (BOUNDS.x <= 0f || BOUNDS.x + WIDTH >= Pong.WIDTH) { // Ball leaves the sides of the screen
             BOUNDS.setCenter(Pong.WIDTH / 2f, Pong.HEIGHT / 2f); // Center the ball
         }
