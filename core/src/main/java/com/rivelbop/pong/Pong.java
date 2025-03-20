@@ -38,7 +38,7 @@ public class Pong extends ApplicationAdapter {
         ScreenUtils.clear(Color.BLACK);
 
         /* Updates */
-        player.update();
+        player.update(ball);
         enemy.update(ball);
         ball.update();
 

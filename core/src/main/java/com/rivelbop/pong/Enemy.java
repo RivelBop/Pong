@@ -11,7 +11,7 @@ public class Enemy {
     public final float
         WIDTH = 16f, HEIGHT = 80f,
         // The base speed of the paddle
-        SPEED = 230f;
+        SPEED = 280f;
 
     public final Rectangle BOUNDS;
 
@@ -40,6 +40,13 @@ public class Enemy {
             BOUNDS.y = Pong.HEIGHT - HEIGHT; // Place the enemy directly under the top of the screen
         } else if (BOUNDS.y < 0f) { // Enemy leaves the bottom of the screen
             BOUNDS.y = 0f; // Place the enemy directly above the bottom of the screen
+        }
+
+        // Checks if the ball is to the left of the paddle (compares center x-positions)
+        boolean ballOnLeft = ball.BOUNDS.x + ball.WIDTH / 2f < BOUNDS.x + WIDTH / 2f;
+        if (ballOnLeft && BOUNDS.overlaps(ball.BOUNDS)) { // The ball is on the left and overlaps the paddle
+            ball.hDir = -1; // Move the ball to the left (since the enemy is to the right of the screen)
+            ball.speedScale += 0.05f; // Increase the speed of the ball by 5% of the base speed
         }
     }
 }

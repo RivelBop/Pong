@@ -16,6 +16,9 @@ public class Ball {
     // Keeps track of the horizontal direction (hDir) and vertical direction (vDir) of the ball
     public int hDir = -1, vDir = 1;
 
+    // Used to speed up the ball when it is hit by the player or enemy (increases difficulty)
+    public float speedScale = 1f;
+
     public Ball() {
         // The position of the ball is based in the bottom left corner
         // To position from the center, we have to subtract half the width and height from the x and y coordinates
@@ -26,6 +29,7 @@ public class Ball {
     public void update() {
         if (BOUNDS.x <= 0f || BOUNDS.x + WIDTH >= Pong.WIDTH) { // Ball leaves the sides of the screen
             BOUNDS.setCenter(Pong.WIDTH / 2f, Pong.HEIGHT / 2f); // Center the ball
+            speedScale = 1f; // Reset the speed scale
         }
 
         if (BOUNDS.y <= 0f) { // Ball leaves the bottom of the screen
@@ -38,8 +42,8 @@ public class Ball {
         // Used to keep consistent movement no matter the speed/FPS of the system
         float delta = Gdx.graphics.getDeltaTime();
         // Move the ball horizontally based on the speed, horizontal direction, and delta time
-        BOUNDS.x += SPEED * hDir * delta;
+        BOUNDS.x += SPEED * speedScale * hDir * delta;
         // Move the ball vertically based on the speed, vertical direction, and delta time
-        BOUNDS.y += SPEED * vDir * delta;
+        BOUNDS.y += SPEED * speedScale * vDir * delta;
     }
 }
