@@ -19,6 +19,9 @@ public class Ball {
     // Used to speed up the ball when it is hit by the player or enemy (increases difficulty)
     public float speedScale = 1f;
 
+    // Keeps track of when the enemy has scored (used to increase score of either the player or enemy)
+    public boolean enemyHasScored;
+
     public Ball() {
         // The position of the ball is based in the bottom left corner
         // To position from the center, we have to subtract half the width and height from the x and y coordinates
@@ -27,11 +30,6 @@ public class Ball {
     }
 
     public void update() {
-        if (BOUNDS.x <= 0f || BOUNDS.x + WIDTH >= Pong.WIDTH) { // Ball leaves the sides of the screen
-            BOUNDS.setCenter(Pong.WIDTH / 2f, Pong.HEIGHT / 2f); // Center the ball
-            speedScale = 1f; // Reset the speed scale
-        }
-
         if (BOUNDS.y <= 0f) { // Ball leaves the bottom of the screen
             vDir = 1; // Move up
         } else if (BOUNDS.y + HEIGHT >= Pong.HEIGHT) { // Ball leaves the top of the screen
@@ -45,5 +43,10 @@ public class Ball {
         BOUNDS.x += SPEED * speedScale * hDir * delta;
         // Move the ball vertically based on the speed, vertical direction, and delta time
         BOUNDS.y += SPEED * speedScale * vDir * delta;
+    }
+
+    public boolean hasScored() {
+        enemyHasScored = BOUNDS.x <= 0f; // The ball leaves on the left side of the screen (indicating the enemy scored)
+        return enemyHasScored || BOUNDS.x + WIDTH >= Pong.WIDTH; // Ball leaves the sides of the screen
     }
 }
